@@ -1,0 +1,27 @@
+{
+  "name": "shoplist",
+  "version": "0.0.1",
+  "description": "Node project for Ohjelmistokehityksen teknologioita SWD4TN023-3006\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Final \u001b[2~project for \u001b[2~O\u001b[3~hjelmitokehityksen",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaripeks/shoplist.git"
+  },
+  "author": "PS",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaripeks/shoplist/issues"
+  },
+  "homepage": "https://github.com/jaripeks/shoplist#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "jest": "^26.0.1",
+    "nodemon": "^2.0.3"
+  }
+}
