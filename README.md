@@ -19,19 +19,101 @@ The app would:
 5. mark the items that have been bought as being bought
 6. store the date and quantity of the bought item to a DB (for possible future analysis)
 
+# Use cases
+## Use case diagram
+![Use case diagram](documentation\diagrams\use.png)
+
+## User groups
+### User
+The (registered) user of the App
+
+## Use cases
+
+### User
+#### View List
+A list created by the user is shown and Items can be CRUD to/from the list. The List viewed after Login is the List the user has selected as the Default List.
+#### View Lists
+All Active lists created by the user are shown. The User can [view a specific](#view-list), [create a new](#create-list) or [manage](#manage-list) List(s).
+#### Create List
+A name can be given to a new List and Items can be CRUD to the newly created List.
+#### Manage List
+The Lists created by the user can be CRUD.
+
 # Technical introduction & learning goals
+## tl;dr
 As said in the [Introduction](#introduction): the project will focus on the backend development. A node.js express-app will be created and the app will act as the server that will provide a REST-api to the DB. A document-based database MongoDB will be used as the data storage. [Swagger](https://swagger.io/) will be used as the API documentation tool.
 
 The DB will hold user login information and [bcrypt](https://github.com/kelektiv/node.bcrypt.js) will be used to hash that information. Most likely JSON Web Tokens will be used for the authorization.
 
 In the backend development the focus will be on testing, altough it is not yet sure if the developer is capable of fully following the [test-driven development](https://en.wikipedia.org/wiki/Test-driven_development) practises. Atleast [jest](https://jestjs.io/) will be used, possibly [supertest](https://github.com/visionmedia/supertest) also.
 
-### Learning goals
+## Learning goals
 1. Testing node.js (jest)
 2. Document-based databases (MongoDB & [mongoose](https://mongoosejs.com/))
 3. bcrypt
 4. Swagger
-   
+
+## Technical description
+
+### 1. REST API description
+baseURL = `.../api/`
+
+resource collections URL(s) = `baseURL/<collection>`
+
+resource URL(s) = `collectionURL/<id>`
+
+#### HTTP-methods, functions and responses
+URL|HTTP-method|function|response
+---|-----------|--------|--------
+collectionURL|GET|GET all resourcses|200 OK and return all resources in collection
+collectionURL|POST|Creates a new resource from the data passed with request|201 Created and return the newly created resource or 400 Bad Request or 401 Unauthorized
+resourceURL|GET|GET a specific resource|200 OK and return the resource or 404 Not Found
+resourceURL|DELETE|DELETE a specific resource|204 No Content or 404 Not Found or 401 Unauthorized
+resourceURL|PUT|Replaces a specific resource with the data passed with the resource|200 OK and return the updated resource or 400 Bad Request or 404 Not Found or 401 Unauthorized
+
+#### Collections and resources
+##### Collections
+These are the collections that the server will output to the collectionURL endpoints.
+Name|Content|Description
+----|-------|-----------
+lists|Array of list objects|The lists the user has stored into the database
+items|Array of item objects|The items the user has ever stored to any list
+##### Resources
+These are the resources found from the [collections](#collections)
+
+List
+```JSON
+{
+    id: String,
+    name: String,
+    created: Date.toISOString(),
+    completed: Date.toISOString(),
+    default: Boolean,
+    active: Boolean,
+    items: [
+        {
+            name: String,
+            quantity: Number,
+            date: Date.toISOString()
+        }
+    ]
+}
+```
+Item
+```json
+{
+    name: String
+    events: [
+        {
+            date: Date.toISOString(),
+            quantity: Number
+        }
+    ]
+}
+```
+### 2. DB structure
+
+
 # Possible extra features
 1. Change JWT to some other authorization
 2. Plotting / analyzing functionalities (of items purchased)
