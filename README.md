@@ -102,7 +102,8 @@ List
 Item
 ```json
 {
-    name: String
+    id: String,
+    name: String,
     events: [
         {
             date: Date.toISOString(),
@@ -112,7 +113,36 @@ Item
 }
 ```
 ### 2. DB structure
-
+User
+```json
+{
+    _id: String,
+    username: String,
+    passwordHash: String,
+    lists: [list]
+}
+```
+list
+```json
+{
+    _id: String,
+    name: String,
+    created: Date.toISOString(),
+    completed: Date.toISOString(),
+    default: Boolean,
+    active: Boolean,
+    items: [event]
+}
+```
+event
+```json
+{
+    _id: String,
+    date: Date.toISOString(),
+    item: String,
+    quantity: Number
+}
+```
 
 # Possible extra features
 1. Change JWT to some other authorization
