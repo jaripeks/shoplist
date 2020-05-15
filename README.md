@@ -21,7 +21,7 @@ The app would:
 
 # Use cases
 ## Use case diagram
-![Use case diagram](documentation\diagrams\use.png)
+![Use case diagram](documentation/diagrams/use.png)
 
 ## User groups
 ### User
