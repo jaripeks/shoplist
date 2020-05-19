@@ -53,6 +53,12 @@ describe('POST method', () => {
 			.send(newList)
 			.expect(201)
 			.expect('Content-Type', /application\/json/)
+
+		const lists = await helper.listsInDb()
+		expect(lists).toHaveLength(helper.initialLists.length + 1)
+
+		const names = lists.map(list => list.name)
+		expect(names).toContain('ostoslista')
 	})
 })
 

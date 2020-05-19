@@ -1,4 +1,4 @@
-//const List = require('../models/list')
+const List = require('../models/list')
 
 const initialLists = [
 	{
@@ -31,6 +31,12 @@ const initialLists = [
 	}
 ]
 
+const listsInDb = async () => {
+	const lists = await List.find({})
+	return lists.map(list => list.toJSON())
+}
+
 module.exports = {
-	initialLists
+	initialLists,
+	listsInDb
 }
