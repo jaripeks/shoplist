@@ -1,4 +1,26 @@
 const List = require('../models/list')
+const Event = require('../models/event')
+
+const initialEvents = [
+	{
+		date: new Date(),
+		items: 'Item1',
+		quantity: 1
+	},
+	{
+		date: new Date(),
+		items: 'Item2',
+		quantity: 2
+	},
+	{
+		items: 'Item 3',
+		quantity: 3
+	},
+	{
+		items: 'Item neljä',
+		quantity: 4
+	},
+]
 
 const initialLists = [
 	{
@@ -43,8 +65,15 @@ const nonId = async () => {
 	return list._id.toString()
 }
 
+const eventsInDb = async () => {
+	const events = await Event.find({})
+	return events.map(event => event.toJSON())
+}
+
 module.exports = {
+	initialEvents,
 	initialLists,
 	listsInDb,
-	nonId
+	nonId,
+	eventsInDb
 }
