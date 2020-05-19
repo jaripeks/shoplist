@@ -36,7 +36,15 @@ const listsInDb = async () => {
 	return lists.map(list => list.toJSON())
 }
 
+const nonId = async () => {
+	const list = new List({ name: 'I rarely exist' })
+	await list.save()
+	await list.remove()
+	return list._id.toString()
+}
+
 module.exports = {
 	initialLists,
-	listsInDb
+	listsInDb,
+	nonId
 }

@@ -40,11 +40,16 @@ describe('smoketests', () => {
 			response.body.map(list => list.id).forEach(id => expect(id).toBeDefined())
 			response.body.map(list => list._id).forEach(_id => expect(_id).not.toBeDefined())
 		})
+
+		test('have an items array field', async () => {
+			const response = await api.get(baseUrl)
+			response.body.map(list => list.items).forEach(items => expect(items).toBeDefined())
+		})
 	})
 })
 
 describe('POST method', () => {
-	test('adds a list to the DB', async () => {
+	test('adds a list to the DB and responds with Created', async () => {
 		const newList = {
 			name: 'ostoslista'
 		}
@@ -59,6 +64,36 @@ describe('POST method', () => {
 
 		const names = lists.map(list => list.name)
 		expect(names).toContain('ostoslista')
+	})
+
+	test('does not add a list without name and responds with bad request', async () => {
+		const newList = {
+			default: true,
+			active: true
+		}
+		await api
+			.post(baseUrl)
+			.send(newList)
+			.expect(400)
+	})
+})
+
+describe('GET method', () => {
+	test('returns a specific resource', async () => {
+		const lists = await helper.listsInDb()
+
+		const list = await api
+			.get(`${baseUrl}/${lists[0].id}`)
+			.expect(200)
+			.expect('Content-Type', /application\/json/)
+
+		expect(list.body.name).toEqual(lists[0].name)
+	})
+
+	test('responds with Not found if list is not found', async () => {
+		await api
+			.get(`${baseUrl}/${helper.nonId()}`)
+			.expect(404)
 	})
 })
 

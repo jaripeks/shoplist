@@ -12,8 +12,14 @@ const unknownEndpoint = (request, response) => {
 }
 
 const errorHandler = (error, request, response, next) => {
+	// mongo schema errors cause ValidationError
 	if (error.name === 'ValidationError') {
 		return response.status(400).json({ error: error.message })
+	}
+
+	// wrong (non-existing) mongo-id causes CastError
+	if (error.name === 'CastError') {
+		return response.status(404).json({ error: error.message })
 	}
 
 	logger.error(error.message)

@@ -11,7 +11,11 @@ const itemsRouter = require('./controllers/items')
 
 //mongoose stuff here
 logger.info('Connecting to Mongo')
-mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(config.MONGODB_URI, {
+	useNewUrlParser: true,
+	useUnifiedTopology: true,
+	useFindAndModify: false
+})
 	.then(() => logger.info('Connected to Mongo'))
 	.catch(error => logger.error(`error with Mongo - ${error.message}`))
 

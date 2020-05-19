@@ -6,6 +6,11 @@ listsRouter.get('/', async (req, res) => {
 	res.json(lists.map(list => list.toJSON()))
 })
 
+listsRouter.get('/:id', async (req, res) => {
+	const list = await List.findById(req.params.id)
+	res.status(200).json(list.toJSON())
+})
+
 listsRouter.post('/', async (req, res) => {
 	const list = new List({
 		name: req.body.name,
