@@ -2,6 +2,7 @@ const supertest = require('supertest')
 const mongoose = require('mongoose')
 const app = require('../app')
 const List = require('../models/list')
+const Event = require('../models/event')
 const helper = require('./test_helper')
 const baseUrl = '/api/lists'
 
@@ -17,8 +18,23 @@ const api = supertest(app)
  * 2. insert lists from test_helper.js
  */
 beforeEach(async () => {
+	await Event.deleteMany({})
+	await Event.insertMany(helper.initialEvents)
+
+	const events = await helper.eventsInDb()
+
 	await List.deleteMany({})
-	await List.insertMany(helper.initialLists)
+
+	const lists = helper.initialLists.map((list, index) => {
+		return (
+			{
+				...list,
+				event: events[index]
+			}
+		)
+	})
+
+	await List.insertMany(lists)
 })
 
 describe('smoketests', () => {
@@ -89,11 +105,23 @@ describe('GET method', () => {
 
 		expect(list.body.name).toEqual(lists[0].name)
 	})
+})
 
-	test('responds with Not found if list is not found', async () => {
+describe('PUT method', () => {
+	test('updates the list', async () => {
+		const listsAtStart = await helper.listsInDb()
+
+		const updatedList = {
+			...listsAtStart[0],
+			completed: false,
+			active: false
+		}
+
 		await api
-			.get(`${baseUrl}/${helper.nonId()}`)
-			.expect(404)
+			.put(`${baseUrl}/${listsAtStart[0].id}`)
+			.send(updatedList)
+			.expect(200)
+			.expect('Content-Type', /application\/json/)
 	})
 })
 
