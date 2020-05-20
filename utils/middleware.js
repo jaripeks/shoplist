@@ -17,7 +17,7 @@ const errorHandler = (error, request, response, next) => {
 		return response.status(400).json({ error: error.message })
 	}
 
-	// wrong (non-existing) mongo-id causes CastError
+	// wrong (format) mongo-id causes CastError
 	if (error.name === 'CastError') {
 		return response.status(404).json({ error: error.message })
 	}
