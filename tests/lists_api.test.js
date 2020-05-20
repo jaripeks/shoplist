@@ -14,8 +14,11 @@ const api = supertest(app)
 
 /**
  * initialize the test-collection:
- * 1. delete all items in the collection
- * 2. insert lists from test_helper.js
+ * 1. delete all events in the test collection
+ * 2. insert events from test_helper.js to test collection
+ * 3. delete all items in the test collection
+ * 4. generate lists by combining lists from test_helper.js and events
+ * 5. insert generated lists to test collection
  */
 beforeEach(async () => {
 	await Event.deleteMany({})
@@ -37,6 +40,9 @@ beforeEach(async () => {
 	await List.insertMany(lists)
 })
 
+/**
+ * tests that ensure there is any point in doing rest of the tests
+ */
 describe('smoketests', () => {
 	test('lists are returned as json', async () => {
 		await api
@@ -83,6 +89,8 @@ describe('POST method', () => {
 	})
 
 	test('does not add a list without name and responds with bad request', async () => {
+		const listsAtStart = await helper.listsInDb()
+
 		const newList = {
 			default: true,
 			active: true
@@ -91,9 +99,16 @@ describe('POST method', () => {
 			.post(baseUrl)
 			.send(newList)
 			.expect(400)
+
+		const listsAtEnd = await helper.listsInDb()
+		expect(listsAtEnd).toHaveLength(listsAtStart.length)
 	})
 })
 
+/**
+ * does not test the GET collectionURI, since it is tested in the smoketests
+ * and used throughout the rest of the tests
+ */
 describe('GET method', () => {
 	test('returns a specific resource', async () => {
 		const lists = await helper.listsInDb()
@@ -113,7 +128,7 @@ describe('PUT method', () => {
 
 		const updatedList = {
 			...listsAtStart[0],
-			completed: false,
+			default: false,
 			active: false
 		}
 
@@ -122,6 +137,25 @@ describe('PUT method', () => {
 			.send(updatedList)
 			.expect(200)
 			.expect('Content-Type', /application\/json/)
+
+		const listsAtEnd = await helper.listsInDb()
+		expect(listsAtEnd).toHaveLength(listsAtStart.length)
+		expect(listsAtEnd.find(list => list.id.toString() === updatedList.id.toString()).active).toBeFalsy()
+	})
+})
+
+describe('DELETE method', () => {
+	test('deletes a specific list', async () => {
+		const listsAtStart = await helper.listsInDb()
+		const list = listsAtStart[0]
+
+		await api
+			.delete(`${baseUrl}/${list.id}`)
+			.expect(204)
+
+		const listsAtEnd = await helper.listsInDb()
+		expect(listsAtEnd).toHaveLength(listsAtStart.length - 1)
+		expect(listsAtEnd.map(list => list.name)).not.toContain(list.name)
 	})
 })
 
