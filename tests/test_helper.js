@@ -1,6 +1,13 @@
+/**
+ * Module to help with tests
+ */
 const List = require('../models/list')
 const Event = require('../models/event')
+const User = require('../models/user')
 
+/**
+ * Events to insert into DB for tests
+ */
 const initialEvents = [
 	{
 		date: new Date(),
@@ -22,6 +29,9 @@ const initialEvents = [
 	},
 ]
 
+/**
+ * Lists to insert to DB for tests
+ */
 const initialLists = [
 	{
 		name: 'List1',
@@ -53,11 +63,18 @@ const initialLists = [
 	}
 ]
 
+/**
+ * Finds all list in DB formatted with the toJSON() function created for the schema.
+ * Uses mongoose-functions, not HTTP calls
+ */
 const listsInDb = async () => {
 	const lists = await List.find({})
 	return lists.map(list => list.toJSON())
 }
 
+/**
+ * Returns a list id that does not exist but is in correct format
+ */
 const nonId = async () => {
 	const list = new List({ name: 'I rarely exist' })
 	await list.save()
@@ -65,9 +82,22 @@ const nonId = async () => {
 	return list._id.toString()
 }
 
+/**
+ * Finds all events in DB formatted with the toJSON() function created for the schema.
+ * Uses mongoose-functions, not HTTP calls
+ */
 const eventsInDb = async () => {
 	const events = await Event.find({})
 	return events.map(event => event.toJSON())
+}
+
+/**
+ * Finds all users in DB formatted with the toJSON() function created for the schema.
+ * Uses mongoose-functions, not HTTP calls
+ */
+const usersInDb = async () => {
+	const users = await User.find({})
+	return users.map(user => user.toJSON())
 }
 
 module.exports = {
@@ -75,5 +105,6 @@ module.exports = {
 	initialLists,
 	listsInDb,
 	nonId,
-	eventsInDb
+	eventsInDb,
+	usersInDb
 }
