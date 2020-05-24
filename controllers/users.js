@@ -3,6 +3,7 @@ const usersController = require('express').Router()
 const User = require('../models/user')
 
 usersController.post('/', async (req, res) => {
+	// pw checked here, because the string saved to mongo is a pw-hash
 	if (!req.body.password || req.body.password.length < 3) {
 		return res.status(400).json({ error: 'password must be atleast 3 characters' })
 	}

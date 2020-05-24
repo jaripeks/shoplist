@@ -1,0 +1,2 @@
+GET http://localhost:3001/api/lists/
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBla2thIiwiaWQiOiI1ZWNhNjY0N2I3MWI0NTBlMGM4ZjM5MzQiLCJpYXQiOjE1OTAzMjI4ODR9.zZPe3WfmDkVs8S_IfQocuXieUjCBl8UHgGm5xetQMfY

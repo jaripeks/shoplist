@@ -93,8 +93,7 @@ List
     items: [
         {
             name: String,
-            quantity: Number,
-            date: Date.toISOString()
+            quantity: Number
         }
     ]
 }
@@ -102,7 +101,6 @@ List
 Item
 ```json
 {
-    id: String,
     name: String,
     events: [
         {

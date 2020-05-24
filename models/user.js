@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+// this enables unique: true with the username
 const validator = require('mongoose-unique-validator')
 
 const userSchema = mongoose.Schema({
@@ -8,7 +9,11 @@ const userSchema = mongoose.Schema({
 		minlength: 3,
 		unique: true
 	},
-	passwordHash: String
+	passwordHash: String,
+	lists: [{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'List'
+	}]
 })
 
 userSchema.plugin(validator)
