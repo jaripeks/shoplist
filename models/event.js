@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const eventSchema = mongoose.Schema({
 	date: Date,
-	items: String,
+	item: String,
 	quantity: Number,
 	list: {
 		type: mongoose.Schema.Types.ObjectId,
