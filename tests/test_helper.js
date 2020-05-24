@@ -5,6 +5,20 @@ const List = require('../models/list')
 const Event = require('../models/event')
 const User = require('../models/user')
 
+const initialItems = [
+	{
+		item: 'Tuote1',
+		quantity: 10
+	},
+	{
+		item: 'Tuote2',
+		quantity: 2
+	},
+	{
+		item: 'Tuote3'
+	},
+]
+
 /**
  * Events to insert into DB for tests
  */
@@ -103,6 +117,7 @@ const usersInDb = async () => {
 module.exports = {
 	initialEvents,
 	initialLists,
+	initialItems,
 	listsInDb,
 	nonId,
 	eventsInDb,

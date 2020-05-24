@@ -7,7 +7,7 @@ const Event = require('../models/event')
 const convertToEvent = async items => {
 	const events = items.map(item => {
 		return ({
-			item: item.name,
+			item: item.item,
 			quantity: item.quantity,
 			date: item.date ? item.date : null,
 			list: item.list

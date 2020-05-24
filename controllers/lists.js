@@ -72,8 +72,6 @@ listsRouter.put('/:id', async (req, res) => {
 			}))
 			: null
 
-		console.log(items)
-
 		const list = {
 			name: req.body.name,
 			created: req.body.created ? req.body.created : new Date(),

@@ -9,7 +9,8 @@
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "lint": "eslint .",
     "test:lists_api": "npm test -- tests/lists_api.test.js",
-    "test:users": "npm test -- tests/user.test.js"
+    "test:users": "npm test -- tests/user.test.js",
+    "test:items_api": "npm test -- tests/items_api.test.js"
   },
   "repository": {
     "type": "git",

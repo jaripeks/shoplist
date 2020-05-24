@@ -1,26 +1,23 @@
-PUT http://localhost:3001/api/lists/5eca85ed984737470846d33b
+PUT http://localhost:3001/api/lists/5eca87882ce5623f0444001d
 Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBla2thIiwiaWQiOiI1ZWNhNjY0N2I3MWI0NTBlMGM4ZjM5MzQiLCJpYXQiOjE1OTAzMjI4ODR9.zZPe3WfmDkVs8S_IfQocuXieUjCBl8UHgGm5xetQMfY
 
 {
-    "items": [
-      {
-        "name": "makkara",
-        "quantity": 2,
-        "date": null
-      },
-      {
-        "name": "aurinkolasit",
-        "quantity": 1
-      },
-      {
-        "name": "farkut",
-        "quantity": 1
-      }
-    ],
-    "name": "lastenvaate ostoslista",
-    "created": "2020-05-24T14:34:21.775Z",
-    "default": false,
-    "active": true,
-    "id": "5eca85ed984737470846d33b"
-  }
+  "items": [
+    {
+      "item": "makkara",
+      "quantity": 2,
+      "date": null
+    },
+    {
+      "item": "farkut",
+      "quantity": 1,
+      "date": "2020-05-24T14:41:12.537Z"
+    }
+  ],
+  "name": "ostoslista2",
+  "created": "2020-05-24T14:41:12.537Z",
+  "default": false,
+  "active": true,
+  "id": "5eca87882ce5623f0444001d"
+}
