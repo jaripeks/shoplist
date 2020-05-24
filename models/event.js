@@ -14,8 +14,6 @@ eventSchema.set('toJSON', {
 	transform: (document, returnedObject) => {
 		returnedObject.id = returnedObject._id,
 		delete returnedObject._id
-		returnedObject.name = returnedObject.item
-		delete returnedObject.item
 		delete returnedObject.__v
 	}
 })
