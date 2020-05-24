@@ -17,6 +17,14 @@ const convertToEvent = async items => {
 	return Object.values(result.map(event => event._id))
 }
 
+const convertToItems = async eventIDs => {
+	const reducer = (acc, current) => acc.concat(current)
+	const list = eventIDs.reduce(reducer, [])
+	const events = await Event.find({ '_id': { $in: list } })
+	return events
+}
+
 module.exports = {
-	convertToEvent
+	convertToEvent,
+	convertToItems
 }
