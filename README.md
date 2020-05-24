@@ -86,14 +86,15 @@ List
 {
     id: String,
     name: String,
-    created: Date.toISOString(),
-    completed: Date.toISOString(),
+    created: Date,
+    completed: Date,
     default: Boolean,
     active: Boolean,
     items: [
         {
-            name: String,
-            quantity: Number
+            item: String,
+            quantity: Number,
+            date: Date
         }
     ]
 }
@@ -101,10 +102,10 @@ List
 Item
 ```json
 {
-    name: String,
+    item: String,
     events: [
         {
-            date: Date.toISOString(),
+            date: Date,
             quantity: Number
         }
     ]
@@ -125,8 +126,8 @@ list
 {
     _id: String,
     name: String,
-    created: Date.toISOString(),
-    completed: Date.toISOString(),
+    created: Date,
+    completed: Date,
     default: Boolean,
     active: Boolean,
     items: [event]
@@ -136,7 +137,7 @@ event
 ```json
 {
     _id: String,
-    date: Date.toISOString(),
+    date: Date,
     item: String,
     quantity: Number
 }

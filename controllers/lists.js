@@ -6,7 +6,7 @@ const itemsHelper = require('../utils/items_helper')
 listsRouter.get('/', async (req, res) => {
 	const lists = await List
 		.find({ user: req.decodedToken.id })
-		.populate('items', { date: 0, list: 0 })
+		.populate('items', { list: 0, _id: 0 })
 	res.json(lists.map(list => list.toJSON()))
 })
 
@@ -26,6 +26,7 @@ listsRouter.post('/', async (req, res) => {
 	const list = new List({
 		name: req.body.name,
 		created: req.body.created ? req.body.created : new Date(),
+		completed: req.body.completed ? req.body.completed : null,
 		default: req.body.default !== undefined ? req.body.default : false,
 		active: req.body.active !== undefined ? req.body.active : true,
 		user: user._id
@@ -48,8 +49,10 @@ listsRouter.post('/', async (req, res) => {
 	if (items !== null) {
 		result = await List
 			.findByIdAndUpdate(result._id, { ...updatedList, items }, { new: true })
-			.populate('items')
+			.populate('items', { list: 0, _id: 0 })
 	}
+
+	//save the ref to user also
 	user.lists = user.lists.concat(result._id)
 	await user.save()
 
@@ -60,17 +63,28 @@ listsRouter.put('/:id', async (req, res) => {
 	const listToUpdate = await List.findById(req.params.id)
 
 	if (listToUpdate.user.toString() === req.decodedToken.id.toString()) {
+		const items = req.body.items
+			? await itemsHelper.convertToEvent(req.body.items.map(item => {
+				return ({
+					...item,
+					list: req.params.id
+				})
+			}))
+			: null
+
 		const list = {
 			name: req.body.name,
 			created: req.body.created ? req.body.created : new Date(),
-			completed: req.body.completed ? req.body.completed : new Date(),
+			completed: req.body.completed ? req.body.completed : null,
 			default: req.body.default !== undefined ? req.body.default : false,
 			active: req.body.active !== undefined ? req.body.active : true,
-			items: req.body.items ? req.body.items : [],
+			items: items ? items : [],
 			user: req.decodedToken.id
 		}
 
-		const updated = await List.findByIdAndUpdate(req.params.id, list, { new: true })
+		const updated = await List
+			.findByIdAndUpdate(req.params.id, list, { new: true })
+			.populate('items', { list: 0, _id: 0 })
 		return res.status(200).json(updated.toJSON())
 	}
 
