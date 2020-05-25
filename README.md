@@ -1,6 +1,8 @@
 # shoplist
 Final project for course Ohjelmistokehityksen teknologioita SWD4TN023-3006
 
+The app has been deployed to: https://peaceful-depths-39729.herokuapp.com/
+
 # Introduction
 In this project a shoplist-app will be created. The app will consist of an [node.js](https://nodejs.org/en/) server that will act as an REST api providing information from a [MongoDB](https://www.mongodb.com/) -storage. The project will focus on backend development but a [React](https://reactjs.org/) frontend will be created to demonstrate the app usage.
 
@@ -21,6 +23,7 @@ The app would:
 
 # Use cases
 ## Use case diagram
+NOTE! maybe in the future :)
 ![Use case diagram](documentation\diagrams\use.png)
 
 ## User groups
