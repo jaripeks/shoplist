@@ -1,6 +1,6 @@
 {
   "name": "shoplist",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Node project for Ohjelmistokehityksen teknologioita SWD4TN023-3006\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[D\u001b[Final \u001b[2~project for \u001b[2~O\u001b[3~hjelmitokehityksen",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,10 @@
     "lint": "eslint .",
     "test:lists_api": "npm test -- tests/lists_api.test.js",
     "test:users": "npm test -- tests/user.test.js",
-    "test:items_api": "npm test -- tests/items_api.test.js"
+    "test:items_api": "npm test -- tests/items_api.test.js",
+    "build:ui": "rm -rf build && cd ../shoplist-front && npm run build && cp -r build ../shoplist",
+    "deploy": "git push heroku master",
+    "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
   },
   "repository": {
     "type": "git",

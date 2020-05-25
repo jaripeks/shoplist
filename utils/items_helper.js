@@ -8,7 +8,7 @@ const convertToEvent = async items => {
 	const events = items.map(item => {
 		return ({
 			item: item.item,
-			quantity: item.quantity,
+			quantity: item.quantity ? item.quantity : 1,
 			date: item.date ? item.date : null,
 			list: item.list
 		})
@@ -30,7 +30,7 @@ const convertToItems = async eventIDs => {
 
 		const newItem = {
 			item: event.item,
-			events: newEvent === null ? [] : newEvent
+			events: newEvent === null ? [] : [newEvent]
 		}
 
 		// check if item found from items
