@@ -1,2 +1,2 @@
 GET http://localhost:3001/api/items
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InBla2thIiwiaWQiOiI1ZWNhNjY0N2I3MWI0NTBlMGM4ZjM5MzQiLCJpYXQiOjE1OTA0MDk0MDB9.J8rC6ntmlCQK1TNLTeGMhVNTZfKIxZ6OsL9M1ReFo6U
+Authorization: bearer <token here>
